@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    database: mysql
+    show-sql: true
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/algamoney?createDatabaseIfNotExist=true&useSSL=false
+    username: root
+    password: m4r14db
+    driver-class-name: com.mysql.cj.jdbc.Driver
