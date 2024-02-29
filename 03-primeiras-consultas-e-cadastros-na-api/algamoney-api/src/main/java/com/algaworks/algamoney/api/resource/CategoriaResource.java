@@ -24,15 +24,17 @@ public class CategoriaResource {
 
     @PostMapping
     public ResponseEntity<Categoria> criar(@RequestBody Categoria categoria) {
-       Categoria categoriaSalva = repository.save(categoria);
-       URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
+        Categoria categoriaSalva = repository.save(categoria);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
                 .buildAndExpand(categoriaSalva.getId()).toUri();
 
         return ResponseEntity.created(uri).body(categoriaSalva);
     }
 
     @GetMapping("{id}")
-    public Categoria buscarPeloCodigo(@PathVariable Long id) {
-        return repository.findById(id).orElse(null);
+    public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long id) {
+        return repository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
