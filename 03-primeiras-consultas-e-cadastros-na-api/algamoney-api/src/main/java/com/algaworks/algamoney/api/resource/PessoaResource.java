@@ -1,7 +1,7 @@
 package com.algaworks.algamoney.api.resource;
 
-import com.algaworks.algamoney.api.model.Categoria;
-import com.algaworks.algamoney.api.repository.CategoriaRepository;
+import com.algaworks.algamoney.api.model.Pessoa;
+import com.algaworks.algamoney.api.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,27 +12,27 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("categorias")
-public class CategoriaResource {
+@RequestMapping("pessoas")
+public class PessoaResource {
 
     @Autowired
-    private CategoriaRepository repository;
+    private PessoaRepository repository;
 
     @GetMapping
-    public List<Categoria> listar() {
+    public List<Pessoa> listar() {
         return repository.findAll();
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> criar(@RequestBody @Valid Categoria categoria) {
-        Categoria categoriaSalva = repository.save(categoria);
+    public ResponseEntity<Pessoa> criar(@RequestBody @Valid Pessoa categoria) {
+        Pessoa categoriaSalva = repository.save(categoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(categoriaSalva.getId()).toUri();
 
         return ResponseEntity.created(uri).body(categoriaSalva);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long id) {
+    public ResponseEntity<Pessoa> buscarPeloCodigo(@PathVariable Long id) {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

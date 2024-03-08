@@ -1,24 +1,28 @@
-package com.algaworks.algamoney.api.mode;
+package com.algaworks.algamoney.api.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-@Table(name = "categoria")
+@Table(name = "pessoa")
 @EqualsAndHashCode(of = "id")
-public class Categoria {
+public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Size(min = 3, max = 20)
     private String nome;
 
+    @NotNull
+    private Boolean ativo;
+
+    @Embedded
+    private Endereco endereco;
 }
